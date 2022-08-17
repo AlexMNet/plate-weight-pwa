@@ -1,5 +1,5 @@
 {
-  "name": "ionic-test",
+  "name": "plate-weight-pwa",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
@@ -67,5 +67,5 @@
   "devDependencies": {
     "@capacitor/cli": "4.0.1"
   },
-  "description": "An Ionic project"
+  "description": "A barbell plate calculator"
 }
