@@ -1,0 +1,3 @@
+ion-button.custom-class::part(native) {
+  overflow: visible;
+}
