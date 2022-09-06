@@ -1,8 +1,8 @@
-import { IonGrid, IonRow, IonCol, IonContent, IonText } from '@ionic/react';
+import { IonRow, IonCol, IonText } from '@ionic/react';
 
 const WeightDisplay: React.FC = () => {
   return (
-    <IonGrid>
+    <div>
       <IonRow>
         <IonCol className='ion-text-center'>
           <IonText>
@@ -21,7 +21,7 @@ const WeightDisplay: React.FC = () => {
           </IonText>
         </IonCol>
       </IonRow>
-    </IonGrid>
+    </div>
   );
 };
 export default WeightDisplay;

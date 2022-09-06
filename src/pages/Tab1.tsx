@@ -9,6 +9,7 @@ import './Tab1.css';
 import WeightDisplay from '../components/WeightDisplay';
 import Bar from '../components/Bar';
 import PlateBadgeDisplay from '../components/PlateBadgeDisplay';
+import InputDisplay from '../components/InputDisplay';
 
 const Tab1: React.FC = () => {
   return (
@@ -19,10 +20,14 @@ const Tab1: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <div className='container'>
+        <div
+          className='container'
+          style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+        >
           <WeightDisplay />
           <Bar />
           <PlateBadgeDisplay />
+          <InputDisplay />
         </div>
       </IonContent>
     </IonPage>
