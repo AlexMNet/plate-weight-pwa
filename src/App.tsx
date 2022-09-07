@@ -10,15 +10,7 @@ import {
   setupIonicReact,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import {
-  accessibility,
-  barbell,
-  cogSharp,
-  ellipse,
-  square,
-  triangle,
-  trophy,
-} from 'ionicons/icons';
+import { barbell, cogSharp, trophy } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
