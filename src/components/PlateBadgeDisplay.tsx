@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { IonButton, IonBadge, IonLabel } from '@ionic/react';
-import './PlateBadgeDisplay.css';
 
 const PlateBadgeDisplay: React.FC = () => {
   return (

@@ -1,22 +1,13 @@
-import React, { useState } from 'react';
-
+import React from 'react';
 import {
   IonContent,
   IonHeader,
   IonPage,
   IonTitle,
   IonToolbar,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonItemDivider,
 } from '@ionic/react';
-import './Tab3.css';
 
 const Tab3: React.FC = () => {
-  const [text, setText] = useState<string>();
-  const [number, setNumber] = useState<number>();
   return (
     <IonPage>
       <IonHeader collapse='fade'>

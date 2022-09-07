@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { IonInput, IonSelect, IonSelectOption, IonLabel } from '@ionic/react';
-import './InputDisplay.css';
 import { useKeyboardState } from '@ionic/react-hooks/keyboard';
 import percentages from '../utils/data/percentages';
 
