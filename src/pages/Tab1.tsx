@@ -16,6 +16,7 @@ import { getPlateComponentData } from '../utils/functions';
 
 const Tab1: React.FC = () => {
   const [plateData, setPlateData] = useState<any>([]);
+  console.log(plateData);
 
   const handleOnClick = (value: any) => {
     setPlateData(getPlateComponentData(value));
@@ -32,7 +33,7 @@ const Tab1: React.FC = () => {
         <Container>
           <InputDisplay2 handleOnClick={handleOnClick} />
           <Bar plateData={plateData} />
-          <PlateBadgeDisplay />
+          <PlateBadgeDisplay plateData={plateData} />
           {/* <WeightDisplay /> */}
           {/* <InputDisplay /> */}
         </Container>
