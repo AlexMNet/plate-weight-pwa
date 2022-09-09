@@ -1,25 +1,34 @@
 import styled from 'styled-components';
 import Plate from './Plate';
 
-const Bar: React.FC = () => {
+interface PlateProps {
+  plateData: any;
+}
+
+const Bar: React.FC<PlateProps> = ({ plateData }) => {
+  console.log(plateData || []);
   return (
     <Wrapper>
       <Barbell>
         <BarLeft>
-          <Plate color='#0F52BA' width='15px' height='65px' />
-          <Plate color='#FCF55F' width='15px' height='65px' />
-          <Plate color='#009E60' width='15px' height='65px' />
-          <Plate color='#880808' width='9px' height='43px' />
-          <Plate color='#FAF9F6' width='9px' height='33px' />
-          <Plate color='#000000' width='6px' height='25px' />
+          {plateData.map((plate: any, idx: any) => (
+            <Plate
+              key={idx}
+              color={plate.color}
+              width={plate.width}
+              height={plate.height}
+            />
+          ))}
         </BarLeft>
         <BarRight>
-          <Plate color='#0F52BA' width='15px' height='65px' />
-          <Plate color='#FCF55F' width='15px' height='65px' />
-          <Plate color='#009E60' width='15px' height='65px' />
-          <Plate color='#880808' width='9px' height='43px' />
-          <Plate color='#FAF9F6' width='9px' height='33px' />
-          <Plate color='#000000' width='6px' height='25px' />
+          {plateData.map((plate: any, idx: any) => (
+            <Plate
+              key={idx}
+              color={plate.color}
+              width={plate.width}
+              height={plate.height}
+            />
+          ))}
         </BarRight>
       </Barbell>
     </Wrapper>

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   IonContent,
   IonHeader,
@@ -5,13 +6,21 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
-import WeightDisplay from '../components/WeightDisplay';
+// import WeightDisplay from '../components/WeightDisplay';
 import Bar from '../components/Bar';
 import PlateBadgeDisplay from '../components/PlateBadgeDisplay';
-import InputDisplay from '../components/InputDisplay';
+// import InputDisplay from '../components/InputDisplay';
+import InputDisplay2 from '../components/InputDisplay2';
 import styled from 'styled-components';
+import { getPlateComponentData } from '../utils/functions';
 
 const Tab1: React.FC = () => {
+  const [plateData, setPlateData] = useState<any>([]);
+
+  const handleOnClick = (value: any) => {
+    setPlateData(getPlateComponentData(value));
+  };
+
   return (
     <IonPage>
       <IonHeader collapse='fade'>
@@ -21,10 +30,11 @@ const Tab1: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         <Container>
-          <WeightDisplay />
-          <Bar />
+          <InputDisplay2 handleOnClick={handleOnClick} />
+          <Bar plateData={plateData} />
           <PlateBadgeDisplay />
-          <InputDisplay />
+          {/* <WeightDisplay /> */}
+          {/* <InputDisplay /> */}
         </Container>
       </IonContent>
     </IonPage>
