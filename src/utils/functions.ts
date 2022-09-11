@@ -66,3 +66,21 @@ export const getPlateComponentData = (
 
   return plates;
 };
+
+export const percentageOfInputWeight = (
+  inputWeight: string,
+  percentage: string
+): number => {
+  let finalWeight = Math.floor(
+    Number(inputWeight) * (Number(percentage) / 100)
+  );
+
+  if (finalWeight % 10 < 5 && finalWeight % 10 > 0) {
+    finalWeight = finalWeight - (finalWeight % 10);
+  }
+
+  if (finalWeight % 10 > 5 && finalWeight % 10 < 10) {
+    finalWeight = finalWeight - ((finalWeight % 10) - 5);
+  }
+  return finalWeight;
+};

@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 import Plate from './Plate';
+import type { RootState } from '../redux/app/store';
+import { useSelector } from 'react-redux';
 
-interface PlateProps {
-  plateData: any;
-}
-
-const Bar: React.FC<PlateProps> = ({ plateData }) => {
-  console.log(plateData || []);
+const Bar: React.FC = () => {
+  const { plateData } = useSelector((state: RootState) => state.plate);
   return (
     <Wrapper>
       <Barbell>

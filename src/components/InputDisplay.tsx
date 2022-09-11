@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { IonInput, IonSelect, IonSelectOption, IonLabel } from '@ionic/react';
-import { useKeyboardState } from '@ionic/react-hooks/keyboard';
+// import { useKeyboardState } from '@ionic/react-hooks/keyboard';
 import percentages from '../utils/data/percentages';
 
 interface Props {
@@ -9,26 +9,28 @@ interface Props {
 }
 
 const InputDisplay: React.FC = () => {
-  const { isOpen, keyboardHeight } = useKeyboardState();
+  // const { isOpen, keyboardHeight } = useKeyboardState();
 
-  return (
-    <Wrapper>
-      <FormControl isOpen={isOpen} keyboardHeight={keyboardHeight}>
-        <IonLabel>Weight (lbs)</IonLabel>
-        <IonInput type='number' inputMode='numeric' placeholder='Weight' />
-      </FormControl>
-      <FormControl isOpen={isOpen} keyboardHeight={keyboardHeight}>
-        <IonLabel>Percentage</IonLabel>
-        <IonSelect value={100} placeholder='Percentage'>
-          {percentages.map((percentage) => (
-            <IonSelectOption key={percentage.value} value={percentage.value}>
-              {percentage.label}
-            </IonSelectOption>
-          ))}
-        </IonSelect>
-      </FormControl>
-    </Wrapper>
-  );
+  return null;
+
+  // return (
+  //   <Wrapper>
+  //     <FormControl isOpen={isOpen} keyboardHeight={keyboardHeight}>
+  //       <IonLabel>Weight (lbs)</IonLabel>
+  //       <IonInput type='number' inputMode='numeric' placeholder='Weight' />
+  //     </FormControl>
+  //     <FormControl isOpen={isOpen} keyboardHeight={keyboardHeight}>
+  //       <IonLabel>Percentage</IonLabel>
+  //       <IonSelect value={100} placeholder='Percentage'>
+  //         {percentages.map((percentage) => (
+  //           <IonSelectOption key={percentage.value} value={percentage.value}>
+  //             {percentage.label}
+  //           </IonSelectOption>
+  //         ))}
+  //       </IonSelect>
+  //     </FormControl>
+  //   </Wrapper>
+  // );
 };
 
 export default InputDisplay;

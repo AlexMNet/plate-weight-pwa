@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { IonButton, IonBadge, IonLabel } from '@ionic/react';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../redux/app/store';
 
-interface PlateProps {
-  plateData: any;
-}
+const PlateBadgeDisplay: React.FC = () => {
+  const { plateData } = useSelector((state: RootState) => state.plate);
+  console.log(plateData);
 
-const PlateBadgeDisplay: React.FC<PlateProps> = ({ plateData }) => {
   let plateNumbers = [];
   if (plateData.length > 1) {
     plateNumbers = plateData[plateData.length - 1];
@@ -15,7 +16,7 @@ const PlateBadgeDisplay: React.FC<PlateProps> = ({ plateData }) => {
     <Wrapper>
       {/* 45lb Plates */}
       {plateNumbers.fortyFive ? (
-        <IonButton size='small' color='primary'>
+        <IonButton size='small' color='45lbs'>
           <Label>45lb</Label>
           <IonBadge color='danger' slot='end'>
             {plateNumbers.fortyFive}
@@ -24,7 +25,7 @@ const PlateBadgeDisplay: React.FC<PlateProps> = ({ plateData }) => {
       ) : null}
       {/* 35lb Plates */}
       {plateNumbers.thirtyFive ? (
-        <IonButton size='small' color='warning'>
+        <IonButton size='small' color='35lbs'>
           <Label>35lb</Label>
           <IonBadge color='danger' slot='end'>
             {plateNumbers.thirtyFive}
@@ -33,7 +34,7 @@ const PlateBadgeDisplay: React.FC<PlateProps> = ({ plateData }) => {
       ) : null}
       {/* 25lb Plates */}
       {plateNumbers.twentyFive ? (
-        <IonButton size='small' color='success'>
+        <IonButton size='small' color='25lbs'>
           <Label>25lb</Label>
           <IonBadge color='danger' slot='end'>
             {plateNumbers.twentyFive}
@@ -42,7 +43,7 @@ const PlateBadgeDisplay: React.FC<PlateProps> = ({ plateData }) => {
       ) : null}
       {/* 10lb Plates */}
       {plateNumbers.ten ? (
-        <IonButton size='small' color='dark'>
+        <IonButton size='small' color='10lbs'>
           <Label>10lb</Label>
           <IonBadge color='danger' slot='end'>
             {plateNumbers.ten}
@@ -51,7 +52,7 @@ const PlateBadgeDisplay: React.FC<PlateProps> = ({ plateData }) => {
       ) : null}
       {/* 5lb Plates */}
       {plateNumbers.five ? (
-        <IonButton size='small' color='danger'>
+        <IonButton size='small' color='5lbs'>
           <Label>5lb</Label>
           <IonBadge color='danger' slot='end'>
             {plateNumbers.five}
@@ -59,8 +60,8 @@ const PlateBadgeDisplay: React.FC<PlateProps> = ({ plateData }) => {
         </IonButton>
       ) : null}
       {/* 2.5lb Plates */}
-      {plateNumbers.five ? (
-        <IonButton size='small' color='light'>
+      {plateNumbers.twoPointFive ? (
+        <IonButton size='small' color='2lbs'>
           <Label>2.5lb</Label>
           <IonBadge color='danger' slot='end'>
             {plateNumbers.twoPointFive}
