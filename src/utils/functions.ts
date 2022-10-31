@@ -84,3 +84,19 @@ export const percentageOfInputWeight = (
   }
   return finalWeight;
 };
+
+export const getDataFromInput = (
+  inputWeight: string,
+  percentage: string,
+  thirtyFive?: boolean,
+  barWeight?: number
+) => {
+  const finalWeight = percentageOfInputWeight(inputWeight, percentage);
+
+  const plateData = getPlateComponentData(finalWeight);
+
+  return {
+    finalWeight,
+    plateData,
+  };
+};

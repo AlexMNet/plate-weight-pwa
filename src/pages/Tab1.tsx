@@ -5,11 +5,9 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
-// import WeightDisplay from '../components/WeightDisplay';
 import Bar from '../components/Bar';
 import PlateBadgeDisplay from '../components/PlateBadgeDisplay';
-// import InputDisplay from '../components/InputDisplay';
-import InputDisplay2 from '../components/InputDisplay2';
+import InputDisplay from '../components/InputDisplay';
 import styled from 'styled-components';
 
 const Tab1: React.FC = () => {
@@ -22,11 +20,9 @@ const Tab1: React.FC = () => {
       </IonHeader>
       <IonContent scrollY={false} fullscreen>
         <Container>
-          <InputDisplay2 />
+          <InputDisplay />
           <Bar />
           <PlateBadgeDisplay />
-          {/* <WeightDisplay /> */}
-          {/* <InputDisplay /> */}
         </Container>
       </IonContent>
     </IonPage>

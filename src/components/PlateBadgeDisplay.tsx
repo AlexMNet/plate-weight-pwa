@@ -5,13 +5,13 @@ import type { RootState } from '../redux/app/store';
 
 const PlateBadgeDisplay: React.FC = () => {
   const { plateData } = useSelector((state: RootState) => state.plate);
-  console.log(plateData);
 
+  // Get the last object in the array. Contains an object that has the amount of each plate as well as colors
   let plateNumbers = [];
   if (plateData.length > 1) {
     plateNumbers = plateData[plateData.length - 1];
-    console.log(plateNumbers);
   }
+
   return (
     <Wrapper>
       {/* 45lb Plates */}

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { getPlateComponentData } from '../../utils/functions';
 
 export interface PlateState {
   inputWeight: string;
@@ -38,6 +39,14 @@ export const plateSlice = createSlice({
       state.finalWeight = 0;
     },
     reset: () => initialState,
+    addWeightByFive: (state) => {
+      state.finalWeight += 5;
+      state.plateData = getPlateComponentData(state.finalWeight);
+    },
+    removeWeightByFive: (state) => {
+      state.finalWeight -= 5;
+      state.plateData = getPlateComponentData(state.finalWeight);
+    },
   },
 });
 
@@ -48,5 +57,7 @@ export const {
   setFinalWeight,
   clearInputs,
   reset,
+  addWeightByFive,
+  removeWeightByFive,
 } = plateSlice.actions;
 export default plateSlice.reducer;

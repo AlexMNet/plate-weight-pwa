@@ -1,9 +1,16 @@
 import styled from 'styled-components';
 import Plate from './Plate';
 import type { RootState } from '../redux/app/store';
-import { useSelector } from 'react-redux';
+import { add, remove } from 'ionicons/icons';
+import { IonIcon, IonButton } from '@ionic/react';
+import {
+  addWeightByFive,
+  removeWeightByFive,
+} from '../redux/features/plateSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Bar: React.FC = () => {
+  const dispatch = useDispatch();
   const { plateData } = useSelector((state: RootState) => state.plate);
   return (
     <Wrapper>
@@ -29,6 +36,26 @@ const Bar: React.FC = () => {
           ))}
         </BarRight>
       </Barbell>
+      {Object.keys(plateData).length > 0 && (
+        <ButtonWrapper>
+          <IonButton
+            shape='round'
+            color='light'
+            onClick={() => dispatch(removeWeightByFive())}
+          >
+            <IonIcon icon={remove} size='large' style={{ fontSize: '64px' }} />
+          </IonButton>
+          <IonButton
+            shape='round'
+            color='light'
+            onClick={() => {
+              dispatch(addWeightByFive());
+            }}
+          >
+            <IonIcon icon={add} size='large' style={{ fontSize: '64px' }} />
+          </IonButton>
+        </ButtonWrapper>
+      )}
     </Wrapper>
   );
 };
@@ -40,7 +67,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 100px 0;
+  padding: 100px 0 50px 0;
+  position: relative;
 `;
 
 const Barbell = styled.div`
@@ -51,6 +79,7 @@ const Barbell = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 50px;
 `;
 
 const BarLeft = styled.div`
@@ -71,4 +100,11 @@ const BarRight = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
 `;
