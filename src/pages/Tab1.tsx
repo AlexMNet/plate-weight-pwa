@@ -5,7 +5,6 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
-import WeightDisplay from '../components/WeightDisplay';
 import Bar from '../components/Bar';
 import PlateBadgeDisplay from '../components/PlateBadgeDisplay';
 import InputDisplay from '../components/InputDisplay';
@@ -19,12 +18,11 @@ const Tab1: React.FC = () => {
           <IonTitle>Plate Calculator</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
+      <IonContent scrollY={false} fullscreen>
         <Container>
-          <WeightDisplay />
+          <InputDisplay />
           <Bar />
           <PlateBadgeDisplay />
-          <InputDisplay />
         </Container>
       </IonContent>
     </IonPage>

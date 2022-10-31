@@ -1,27 +1,61 @@
 import styled from 'styled-components';
 import Plate from './Plate';
+import type { RootState } from '../redux/app/store';
+import { add, remove } from 'ionicons/icons';
+import { IonIcon, IonButton } from '@ionic/react';
+import {
+  addWeightByFive,
+  removeWeightByFive,
+} from '../redux/features/plateSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Bar: React.FC = () => {
+  const dispatch = useDispatch();
+  const { plateData } = useSelector((state: RootState) => state.plate);
   return (
     <Wrapper>
       <Barbell>
         <BarLeft>
-          <Plate color='#0F52BA' width='15px' height='65px' />
-          <Plate color='#FCF55F' width='15px' height='65px' />
-          <Plate color='#009E60' width='15px' height='65px' />
-          <Plate color='#880808' width='9px' height='43px' />
-          <Plate color='#FAF9F6' width='9px' height='33px' />
-          <Plate color='#000000' width='6px' height='25px' />
+          {plateData.map((plate: any, idx: any) => (
+            <Plate
+              key={idx}
+              color={plate.color}
+              width={plate.width}
+              height={plate.height}
+            />
+          ))}
         </BarLeft>
         <BarRight>
-          <Plate color='#0F52BA' width='15px' height='65px' />
-          <Plate color='#FCF55F' width='15px' height='65px' />
-          <Plate color='#009E60' width='15px' height='65px' />
-          <Plate color='#880808' width='9px' height='43px' />
-          <Plate color='#FAF9F6' width='9px' height='33px' />
-          <Plate color='#000000' width='6px' height='25px' />
+          {plateData.map((plate: any, idx: any) => (
+            <Plate
+              key={idx}
+              color={plate.color}
+              width={plate.width}
+              height={plate.height}
+            />
+          ))}
         </BarRight>
       </Barbell>
+      {Object.keys(plateData).length > 0 && (
+        <ButtonWrapper>
+          <IonButton
+            shape='round'
+            color='light'
+            onClick={() => dispatch(removeWeightByFive())}
+          >
+            <IonIcon icon={remove} size='large' style={{ fontSize: '64px' }} />
+          </IonButton>
+          <IonButton
+            shape='round'
+            color='light'
+            onClick={() => {
+              dispatch(addWeightByFive());
+            }}
+          >
+            <IonIcon icon={add} size='large' style={{ fontSize: '64px' }} />
+          </IonButton>
+        </ButtonWrapper>
+      )}
     </Wrapper>
   );
 };
@@ -33,7 +67,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 100px 0;
+  padding: 100px 0 50px 0;
+  position: relative;
 `;
 
 const Barbell = styled.div`
@@ -44,6 +79,7 @@ const Barbell = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 50px;
 `;
 
 const BarLeft = styled.div`
@@ -64,4 +100,11 @@ const BarRight = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
 `;
