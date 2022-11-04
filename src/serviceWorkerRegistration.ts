@@ -15,7 +15,9 @@ const isLocalhost = Boolean(
     // [::1] is the IPv6 localhost address.
     window.location.hostname === '[::1]' ||
     // 127.0.0.0/8 are considered localhost for IPv4.
-    window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
+    window.location.hostname.match(
+      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+    )
 );
 
 type Config = {
@@ -61,6 +63,13 @@ function registerValidSW(swUrl: string, config?: Config) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
+      registration.update();
+
+      setInterval(() => {
+        // Check for updates every 5 minutes
+        registration.update();
+      }, 1000 * 60 * 5);
+
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         if (installingWorker == null) {
@@ -72,11 +81,12 @@ function registerValidSW(swUrl: string, config?: Config) {
               // At this point, the updated precached content has been fetched,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
-              console.log(
-                'New content is available and will be used when all ' +
-                  'tabs for this page are closed. See https://cra.link/PWA.'
-              );
-
+              registration.waiting!.postMessage({ type: 'SKIP_WAITING' });
+              // eslint-disable-next-line no-restricted-globals
+              const response = confirm('New updates available. Please reload!');
+              if (response) {
+                window.location.reload();
+              }
               // Execute callback
               if (config && config.onUpdate) {
                 config.onUpdate(registration);
@@ -125,7 +135,9 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
       }
     })
     .catch(() => {
-      console.log('No internet connection found. App is running in offline mode.');
+      console.log(
+        'No internet connection found. App is running in offline mode.'
+      );
     });
 }
 
