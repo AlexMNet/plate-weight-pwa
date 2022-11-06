@@ -77,13 +77,18 @@ const InputDisplay: React.FC<any> = () => {
         ))}
       </StyledIonSelect>
       <IonButton onClick={() => handleOnClick()}>Calc</IonButton>
-      {Number(inputWeight) !== finalWeight && (
-        <IonText color='warning'>
-          <p>
-            Final Weight: <span>{finalWeight}</span>{' '}
-          </p>
-        </IonText>
-      )}
+      <IonText color='warning'>
+        <p
+          style={{
+            visibility:
+              Number(inputWeight) !== finalWeight && finalWeight !== 0
+                ? 'visible'
+                : 'hidden',
+          }}
+        >
+          Final Weight: <span>{finalWeight}</span>{' '}
+        </p>
+      </IonText>
     </Wrapper>
   );
 };
@@ -110,5 +115,5 @@ const StyledIonSelect = styled(IonSelect)`
 `;
 
 const Input = styled(IonInput)<{ value: string }>`
-  font-size: 110px;
+  font-size: 90px;
 `;
