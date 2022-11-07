@@ -83,7 +83,9 @@ function registerValidSW(swUrl: string, config?: Config) {
               // content until all client tabs are closed.
               registration.waiting!.postMessage({ type: 'SKIP_WAITING' });
               // eslint-disable-next-line no-restricted-globals
-              const response = confirm('New updates available. Please reload!');
+              const response = confirm(
+                'New updates available! Click OK to update app.'
+              );
               if (response) {
                 window.location.reload();
               }
