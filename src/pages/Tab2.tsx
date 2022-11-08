@@ -11,7 +11,7 @@ const Tab2: React.FC = () => {
     <IonPage>
       <IonHeader collapse='fade'>
         <IonToolbar>
-          <IonTitle>Plate Calculator</IonTitle>
+          <IonTitle>1 Rep Max Coming Soon...</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen></IonContent>
