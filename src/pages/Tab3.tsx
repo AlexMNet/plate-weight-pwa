@@ -12,7 +12,7 @@ const Tab3: React.FC = () => {
     <IonPage>
       <IonHeader collapse='fade'>
         <IonToolbar>
-          <IonTitle>Plate Calculator</IonTitle>
+          <IonTitle>Settings Coming Soon...</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen></IonContent>

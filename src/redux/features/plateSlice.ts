@@ -7,6 +7,7 @@ export interface PlateState {
   percentage: string;
   plateData: any;
   finalWeight: number;
+  updatesAvailable: boolean;
 }
 
 const initialState: PlateState = {
@@ -14,6 +15,7 @@ const initialState: PlateState = {
   percentage: '100',
   plateData: [],
   finalWeight: 0,
+  updatesAvailable: false,
 };
 
 export const plateSlice = createSlice({
@@ -47,6 +49,9 @@ export const plateSlice = createSlice({
       state.finalWeight -= 5;
       state.plateData = getPlateComponentData(state.finalWeight);
     },
+    setUpdateNotification: (state, { payload }) => {
+      state.updatesAvailable = payload;
+    },
   },
 });
 
@@ -59,5 +64,6 @@ export const {
   reset,
   addWeightByFive,
   removeWeightByFive,
+  setUpdateNotification,
 } = plateSlice.actions;
 export default plateSlice.reducer;

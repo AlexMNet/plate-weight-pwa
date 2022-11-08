@@ -10,6 +10,9 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://cra.link/PWA
 
+import { store } from './redux/app/store';
+import { setUpdateNotification } from './redux/features/plateSlice';
+
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -83,12 +86,9 @@ function registerValidSW(swUrl: string, config?: Config) {
               // content until all client tabs are closed.
               registration.waiting!.postMessage({ type: 'SKIP_WAITING' });
               // eslint-disable-next-line no-restricted-globals
-              const response = confirm(
-                'New updates available! Click OK to update app.'
-              );
-              if (response) {
-                window.location.reload();
-              }
+
+              store.dispatch(setUpdateNotification(true));
+
               // Execute callback
               if (config && config.onUpdate) {
                 config.onUpdate(registration);
