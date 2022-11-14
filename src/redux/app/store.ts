@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import plateReducer from '../features/plateSlice';
+import authReducer from '../features/authSlice';
 
 export const store = configureStore({
   reducer: {
     plate: plateReducer,
+    auth: authReducer,
   },
 });
 

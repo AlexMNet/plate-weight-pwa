@@ -6,6 +6,7 @@ import {
   IonToolbar,
   useIonAlert,
 } from '@ionic/react';
+
 import Bar from '../components/Bar';
 import PlateBadgeDisplay from '../components/PlateBadgeDisplay';
 import InputDisplay from '../components/InputDisplay';
