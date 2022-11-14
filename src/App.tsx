@@ -1,19 +1,6 @@
-import { Redirect, Route } from 'react-router-dom';
-import {
-  IonApp,
-  IonIcon,
-  IonLabel,
-  IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
-  setupIonicReact,
-} from '@ionic/react';
+import { Route } from 'react-router-dom';
+import { IonApp, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { barbell, cogSharp, trophy } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -33,44 +20,38 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Auth from './components/Auth';
+import MainTabs from './MainTabs';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase-config';
+import { useSelector, useDispatch } from 'react-redux';
+import type { RootState } from './redux/app/store';
+import { setUser } from './redux/features/authSlice';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path='/tab1'>
-            <Tab1 />
-          </Route>
-          <Route exact path='/tab2'>
-            <Tab2 />
-          </Route>
-          <Route path='/tab3'>
-            <Tab3 />
-          </Route>
-          <Route exact path='/'>
-            <Redirect to='/tab1' />
-          </Route>
-        </IonRouterOutlet>
-        <IonTabBar slot='bottom'>
-          <IonTabButton tab='tab1' href='/tab1'>
-            <IonIcon icon={barbell} />
-            <IonLabel>Calculator</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab='tab2' href='/tab2'>
-            <IonIcon icon={trophy} />
-            <IonLabel>1 Rep Max</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab='tab3' href='/tab3'>
-            <IonIcon icon={cogSharp} />
-            <IonLabel>Settings</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const { userId } = useSelector((state: RootState) => state.auth);
+
+  onAuthStateChanged(auth, (currentUser) => {
+    dispatch(
+      setUser({
+        userId: currentUser?.uid,
+        userEmail: currentUser?.email,
+      })
+    );
+  });
+
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <Route exact path='/auth' component={Auth} />
+        <Route path='/' component={userId ? MainTabs : Auth} />
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;
