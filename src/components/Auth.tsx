@@ -1,3 +1,4 @@
+/* Ionic Framework */
 import {
   IonContent,
   IonHeader,
@@ -19,17 +20,25 @@ import {
   IonNote,
   useIonAlert,
 } from '@ionic/react';
+
+/* Firebase */
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { auth } from '../../src/firebase-config';
+import { FirebaseError } from 'firebase/app';
+
+/* CSS */
 import styled from 'styled-components';
+
+/* React */
 import { useState } from 'react';
+
+/* Form validation */
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { FirebaseError } from 'firebase/app';
 
 interface IFormInput {
   email: any;
@@ -60,6 +69,7 @@ const Auth = () => {
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     if (form === 'Login') {
       try {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const user = await signInWithEmailAndPassword(
           auth,
           data.email,
@@ -74,12 +84,13 @@ const Auth = () => {
               buttons: ['OK'],
             });
           } else {
-            presentAlert('Something Went Wrong!');
+            presentAlert('Email or Password is incorrect');
           }
         }
       }
     } else {
       try {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const user = await createUserWithEmailAndPassword(
           auth,
           data.email,
@@ -166,6 +177,14 @@ const Auth = () => {
                   expand='full'
                 >
                   {form === 'Login' ? 'Login' : 'Register'}
+                </IonButton>
+
+                <IonButton
+                  routerLink='/forgot-password'
+                  fill='clear'
+                  expand='full'
+                >
+                  <small>Forgot password?</small>
                 </IonButton>
               </form>
               <IonGrid className='ion-padding-top'>

@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import { IonApp, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
@@ -27,30 +27,52 @@ import { auth } from './firebase-config';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from './redux/app/store';
 import { setUser } from './redux/features/authSlice';
+import ForgotPassword from './components/ForgotPassword';
+import Splash from './components/Splash';
+import { useEffect } from 'react';
 
 setupIonicReact();
 
+const PrivateRoutes = () => {
+  return (
+    <IonReactRouter>
+      <Route path='/home' component={MainTabs} />;
+      <Route path='/' render={() => <Redirect to='/home/tab1' />} />;
+    </IonReactRouter>
+  );
+};
+
+const PublicRoutes = () => {
+  return (
+    <IonReactRouter>
+      <Route path='/auth' component={Auth} />
+      <Route path='/forgot-password' component={ForgotPassword} />
+      <Route path='/' render={() => <Redirect to='/auth' />} />
+    </IonReactRouter>
+  );
+};
+
 const App: React.FC = () => {
   const dispatch = useDispatch();
-
   const { userId } = useSelector((state: RootState) => state.auth);
 
-  onAuthStateChanged(auth, (currentUser) => {
-    dispatch(
-      setUser({
-        userId: currentUser?.uid,
-        userEmail: currentUser?.email,
-      })
-    );
-  });
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      dispatch(
+        setUser({
+          userId: currentUser?.uid,
+          userEmail: currentUser?.email,
+        })
+      );
+    });
+  }, [dispatch]);
 
-  return (
+  return userId === null ? (
     <IonApp>
-      <IonReactRouter>
-        <Route exact path='/auth' component={Auth} />
-        <Route path='/' component={userId ? MainTabs : Auth} />
-      </IonReactRouter>
+      <Splash />
     </IonApp>
+  ) : (
+    <IonApp>{userId ? <PrivateRoutes /> : <PublicRoutes />}</IonApp>
   );
 };
 
