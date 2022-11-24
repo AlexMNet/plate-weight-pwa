@@ -5,9 +5,15 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
+  useIonAlert,
 } from '@ionic/react';
 import { Redirect, Route } from 'react-router-dom';
 import { barbell, cogSharp, trophy, fitnessOutline } from 'ionicons/icons';
+
+import type { RootState } from './redux/app/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { setUpdateNotification } from './redux/features/plateSlice';
+import { useEffect } from 'react';
 
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
@@ -15,6 +21,32 @@ import Tab3 from './pages/Tab3';
 import Tab4 from './pages/Tab4';
 
 const MainTabs: React.FC = () => {
+  const [presentAlert] = useIonAlert();
+  const { updatesAvailable } = useSelector((state: RootState) => state.plate);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const updateApp = () => {
+      dispatch(setUpdateNotification(false));
+      window.location.reload();
+    };
+
+    if (updatesAvailable) {
+      presentAlert({
+        backdropDismiss: false,
+        header: 'New Updates Available!',
+        subHeader: '😎💪',
+        buttons: [
+          {
+            text: 'Update',
+            role: 'confirm',
+            handler: () => updateApp(),
+          },
+        ],
+      });
+    }
+  }, [updatesAvailable, dispatch, presentAlert]);
+
   return (
     <IonTabs>
       <IonRouterOutlet>
