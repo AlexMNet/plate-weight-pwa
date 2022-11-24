@@ -54,7 +54,7 @@ const PublicRoutes = () => {
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const { userId } = useSelector((state: RootState) => state.auth);
+  const { user } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -62,17 +62,20 @@ const App: React.FC = () => {
         setUser({
           userId: currentUser?.uid,
           userEmail: currentUser?.email,
+          displayName: currentUser?.displayName,
+          photoURL: currentUser?.photoURL,
+          emailVerified: currentUser?.emailVerified,
         })
       );
     });
   }, [dispatch]);
 
-  return userId === null ? (
+  return user?.userId === null ? (
     <IonApp>
       <Splash />
     </IonApp>
   ) : (
-    <IonApp>{userId ? <PrivateRoutes /> : <PublicRoutes />}</IonApp>
+    <IonApp>{user?.userId ? <PrivateRoutes /> : <PublicRoutes />}</IonApp>
   );
 };
 
