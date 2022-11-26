@@ -19,7 +19,9 @@ import {
   IonRow,
   IonNote,
   useIonAlert,
+  IonIcon,
 } from '@ionic/react';
+import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
 
 /* Firebase */
 import {
@@ -56,6 +58,7 @@ const schema = yup
   .required();
 
 const Auth = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState('Login');
   const [presentAlert] = useIonAlert();
   const {
@@ -120,6 +123,10 @@ const Auth = () => {
     }
   };
 
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <IonPage>
       <IonHeader collapse='fade'>
@@ -159,7 +166,7 @@ const Auth = () => {
                     <Controller
                       render={({ field }) => (
                         <IonInput
-                          type='password'
+                          type={showPassword ? 'text' : 'password'}
                           {...field}
                           onIonBlur={() => field.onBlur()}
                           onIonChange={(e) => field.onChange(e.detail.value)}
@@ -168,6 +175,15 @@ const Auth = () => {
                       control={control}
                       name='password'
                     />
+                    <IonButton
+                      color={showPassword ? 'primary' : 'medium'}
+                      fill='clear'
+                      onClick={handleShowPassword}
+                    >
+                      <IonIcon
+                        icon={showPassword ? eyeOutline : eyeOffOutline}
+                      />
+                    </IonButton>
                     <IonNote slot='error'>{errors.password?.message}</IonNote>
                   </IonItem>
                 </IonList>
