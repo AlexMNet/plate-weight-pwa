@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   IonContent,
   IonHeader,
@@ -16,13 +15,18 @@ import {
   IonNavLink,
   IonNav,
 } from '@ionic/react';
+
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { logOutOutline } from 'ionicons/icons';
+
 import { useSelector } from 'react-redux';
 import type { RootState } from '../redux/app/store';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase-config';
+
 import EditName from './EditName';
+import EditAvatar from '../components/EditAvatar';
 
 const Tab3: React.FC = () => {
   const history = useHistory();
@@ -52,18 +56,22 @@ const Tab3: React.FC = () => {
                   <IonRow className='ion-justify-content-center ion-align-items-center ion-text-center'>
                     <IonAvatar style={{ height: '100px', width: '100px' }}>
                       <img
-                        alt="Silhouette of a person's head"
-                        src='https://ionicframework.com/docs/img/demos/avatar.svg'
+                        alt='User profile'
+                        src={
+                          user.photoURL
+                            ? user.photoURL
+                            : 'https://ionicframework.com/docs/img/demos/avatar.svg'
+                        }
                       />
                     </IonAvatar>
                   </IonRow>
                   <IonRow className='ion-justify-content-center ion-margin-top'>
-                    <IonButton
-                      fill='clear'
-                      onClick={() => alert('Functionality coming soon...')}
+                    <IonNavLink
+                      routerDirection='forward'
+                      component={() => <EditAvatar />}
                     >
-                      Add/Change Photo
-                    </IonButton>
+                      <IonButton fill='clear'>Add/Change Photo</IonButton>
+                    </IonNavLink>
                   </IonRow>
                 </IonGrid>
                 <IonList lines='full'>
