@@ -1,23 +1,23 @@
 /* Ionic Framework */
 import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
+  IonButton,
   IonCard,
-  IonCardTitle,
-  IonCardHeader,
   IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
   IonInput,
   IonItem,
   IonLabel,
   IonList,
-  IonButton,
-  IonGrid,
-  IonCol,
-  IonRow,
   IonNote,
+  IonPage,
+  IonRow,
+  IonTitle,
+  IonToolbar,
   useIonAlert,
 } from '@ionic/react';
 
@@ -34,7 +34,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 /* React */
-import { useHistory } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 
 interface IFormInput {
   email: any;
@@ -49,7 +49,8 @@ const schema = yup
 
 const ForgotPassword = () => {
   const [presentAlert] = useIonAlert();
-  const history = useHistory();
+  const history = createBrowserHistory();
+
   const {
     control,
     handleSubmit,

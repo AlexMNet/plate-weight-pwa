@@ -1,15 +1,16 @@
 import {
+  IonAvatar,
   IonBackButton,
   IonButton,
   IonButtons,
   IonContent,
+  IonGrid,
   IonHeader,
+  IonPage,
   IonProgressBar,
+  IonRow,
   IonTitle,
   IonToolbar,
-  IonGrid,
-  IonRow,
-  IonAvatar,
   useIonToast,
 } from '@ionic/react';
 import { image, alertCircle } from 'ionicons/icons';
@@ -34,7 +35,8 @@ import { v4 as uuidv4 } from 'uuid';
 import type { RootState } from '../redux/app/store';
 import { updateUser } from '../redux/features/authSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+
+import { createBrowserHistory } from 'history';
 
 const EditAvatar: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<any>();
@@ -42,7 +44,7 @@ const EditAvatar: React.FC = () => {
   const [present] = useIonToast();
   const { user } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
-  const history = useHistory();
+  const history = createBrowserHistory();
 
   const handleFileOnChange = (e: any) => {
     const image = e.target.files[0];
@@ -63,12 +65,14 @@ const EditAvatar: React.FC = () => {
               updateProfile(user, { photoURL: url });
             }
             dispatch(updateUser({ photoURL: url }));
-            history.push('/home/tab3');
+            history.go(-1);
           });
         })
         .catch((error) => {
           present({
-            message: 'Som',
+            message: 'Something went wrong!',
+            duration: 2000,
+            position: 'top',
           });
         });
 
@@ -132,7 +136,7 @@ const EditAvatar: React.FC = () => {
   };
 
   return (
-    <>
+    <IonPage>
       <IonHeader collapse='fade'>
         <IonToolbar>
           <IonButtons slot='start'>
@@ -189,10 +193,7 @@ const EditAvatar: React.FC = () => {
                 </IonAvatar>
               </IonRow>
               <IonRow className='ion-justify-content-center ion-margin-top ion-text-center '>
-                <IonButton onClick={handleSave} className='ion-margin-end'>
-                  Save
-                </IonButton>
-                <ButtonLabel>
+                <ButtonLabel className='ion-margin-end'>
                   Try Again
                   <input
                     type='file'
@@ -203,12 +204,13 @@ const EditAvatar: React.FC = () => {
                     onChange={(e) => handleFileOnChange(e)}
                   />
                 </ButtonLabel>
+                <IonButton onClick={handleSave}>Save</IonButton>
               </IonRow>
             </>
           )}
         </IonGrid>
       </IonContent>
-    </>
+    </IonPage>
   );
 };
 

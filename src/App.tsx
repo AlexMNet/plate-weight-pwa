@@ -37,7 +37,7 @@ const PrivateRoutes = () => {
   return (
     <IonReactRouter>
       <Route path='/home' component={MainTabs} />;
-      <Route path='/' render={() => <Redirect to='/home/tab1' />} />;
+      <Route exact path='/' render={() => <Redirect to='/home/tab1' />} />;
     </IonReactRouter>
   );
 };
