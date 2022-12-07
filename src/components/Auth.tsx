@@ -1,25 +1,25 @@
 /* Ionic Framework */
 import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
+  IonButton,
   IonCard,
-  IonCardTitle,
-  IonCardHeader,
   IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonIcon,
   IonInput,
   IonItem,
   IonLabel,
   IonList,
-  IonButton,
-  IonGrid,
-  IonCol,
-  IonRow,
   IonNote,
+  IonPage,
+  IonRow,
+  IonTitle,
+  IonToolbar,
   useIonAlert,
-  IonIcon,
 } from '@ionic/react';
 import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
 
@@ -36,11 +36,15 @@ import styled from 'styled-components';
 
 /* React */
 import { useState } from 'react';
+import { createBrowserHistory } from 'history';
 
 /* Form validation */
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+
+/* Components */
+import Splash from '../components/Splash';
 
 interface IFormInput {
   email: any;
@@ -59,8 +63,11 @@ const schema = yup
 
 const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState('Login');
   const [presentAlert] = useIonAlert();
+  const history = createBrowserHistory();
+
   const {
     control,
     handleSubmit,
@@ -71,6 +78,7 @@ const Auth = () => {
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     if (form === 'Login') {
+      setLoading(true);
       try {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const user = await signInWithEmailAndPassword(
@@ -78,7 +86,10 @@ const Auth = () => {
           data.email,
           data.password
         );
+        setLoading(false);
+        history.push('/home');
       } catch (error) {
+        setLoading(false);
         if (error instanceof FirebaseError) {
           if (error.code === 'auth/user-not-found') {
             presentAlert({
@@ -93,13 +104,12 @@ const Auth = () => {
       }
     } else {
       try {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const user = await createUserWithEmailAndPassword(
-          auth,
-          data.email,
-          data.password
-        );
+        setLoading(true);
+        await createUserWithEmailAndPassword(auth, data.email, data.password);
+        setLoading(false);
+        history.push('/home');
       } catch (error) {
+        setLoading(false);
         if (error instanceof FirebaseError) {
           if (error.code === 'auth/email-already-in-use') {
             presentAlert({
@@ -126,6 +136,10 @@ const Auth = () => {
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  if (loading) {
+    return <Splash />;
+  }
 
   return (
     <IonPage>

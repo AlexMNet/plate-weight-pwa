@@ -1,35 +1,32 @@
 import {
+  IonAvatar,
+  IonButton,
   IonContent,
+  IonGrid,
   IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
+  IonIcon,
   IonItem,
   IonLabel,
   IonList,
-  IonButton,
-  IonIcon,
-  IonAvatar,
-  IonGrid,
+  IonPage,
   IonRow,
-  IonNavLink,
-  IonNav,
+  IonTitle,
+  IonToolbar,
 } from '@ionic/react';
+import { logOutOutline } from 'ionicons/icons';
 
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { logOutOutline } from 'ionicons/icons';
+import { createBrowserHistory } from 'history';
 
 import { useSelector } from 'react-redux';
 import type { RootState } from '../redux/app/store';
+
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase-config';
 
-import EditName from './EditName';
-import EditAvatar from '../components/EditAvatar';
-
 const Tab3: React.FC = () => {
-  const history = useHistory();
+  const history = createBrowserHistory();
+
   const { user } = useSelector((state: RootState) => state.auth);
 
   const logout = async () => {
@@ -39,63 +36,49 @@ const Tab3: React.FC = () => {
 
   return (
     <IonPage>
-      <IonNav
-        root={() => {
-          return (
-            <>
-              <IonHeader collapse='fade'>
-                <IonToolbar>
-                  <IonTitle>Settings</IonTitle>
-                  <IonButton onClick={logout} fill='clear' slot='end'>
-                    <IonIcon icon={logOutOutline} />
-                  </IonButton>
-                </IonToolbar>
-              </IonHeader>
-              <IonContent fullscreen>
-                <IonGrid>
-                  <IonRow className='ion-justify-content-center ion-align-items-center ion-text-center'>
-                    <IonAvatar style={{ height: '100px', width: '100px' }}>
-                      <img
-                        alt='User profile'
-                        src={
-                          user.photoURL
-                            ? user.photoURL
-                            : 'https://ionicframework.com/docs/img/demos/avatar.svg'
-                        }
-                      />
-                    </IonAvatar>
-                  </IonRow>
-                  <IonRow className='ion-justify-content-center ion-margin-top'>
-                    <IonNavLink
-                      routerDirection='forward'
-                      component={() => <EditAvatar />}
-                    >
-                      <IonButton fill='clear'>Add/Change Photo</IonButton>
-                    </IonNavLink>
-                  </IonRow>
-                </IonGrid>
-                <IonList lines='full'>
-                  <IonItem>
-                    <IonNavLink
-                      routerDirection='forward'
-                      component={() => (
-                        <EditName
-                          displayName={user.displayName || 'Enter Your Name'}
-                        />
-                      )}
-                    >
-                      Display Name: {user.displayName || 'Enter Your name'}
-                    </IonNavLink>
-                  </IonItem>
-                  <IonItem>
-                    <IonLabel>email: {user.userEmail}</IonLabel>
-                  </IonItem>
-                </IonList>
-              </IonContent>
-            </>
-          );
-        }}
-      />
+      <IonHeader collapse='fade'>
+        <IonToolbar>
+          <IonTitle>Settings</IonTitle>
+          <IonButton onClick={logout} fill='clear' slot='end'>
+            <IonIcon icon={logOutOutline} />
+          </IonButton>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent fullscreen>
+        <IonGrid>
+          <IonRow className='ion-justify-content-center ion-align-items-center ion-text-center'>
+            <IonAvatar style={{ height: '100px', width: '100px' }}>
+              <img
+                alt='User profile'
+                src={
+                  user.photoURL
+                    ? user.photoURL
+                    : 'https://ionicframework.com/docs/img/demos/avatar.svg'
+                }
+              />
+            </IonAvatar>
+          </IonRow>
+          <IonRow className='ion-justify-content-center ion-margin-top'>
+            <IonButton
+              fill='clear'
+              routerLink='/home/settings/avatar'
+              routerDirection='forward'
+            >
+              Add/Change Photo
+            </IonButton>
+          </IonRow>
+        </IonGrid>
+        <IonList lines='full'>
+          <IonItem routerLink='/home/settings/name' routerDirection='forward'>
+            <IonLabel>
+              Display Name: {user.displayName || 'Enter Your name'}
+            </IonLabel>
+          </IonItem>
+          <IonItem routerLink='/home/settings/email' routerDirection='forward'>
+            <IonLabel>email: {user.userEmail}</IonLabel>
+          </IonItem>
+        </IonList>
+      </IonContent>
     </IonPage>
   );
 };

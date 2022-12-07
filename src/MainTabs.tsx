@@ -19,6 +19,9 @@ import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
 import Tab4 from './pages/Tab4';
+import EditAvatar from './components/EditAvatar';
+import EditName from './components/EditName';
+import EditEmail from './components/EditEmail';
 
 const MainTabs: React.FC = () => {
   const [presentAlert] = useIonAlert();
@@ -62,6 +65,9 @@ const MainTabs: React.FC = () => {
         <Route path='/home/tab4'>
           <Tab4 />
         </Route>
+        <Route path='/home/settings/avatar' component={EditAvatar} />
+        <Route path='/home/settings/name' component={EditName} />
+        <Route path='/home/settings/email' component={EditEmail} />
         <Route exact path='/home'>
           <Redirect to='/home/tab1' />
         </Route>

@@ -8,10 +8,12 @@ import {
   IonItem,
   IonLabel,
   IonList,
+  IonNote,
+  IonPage,
   IonProgressBar,
   IonTitle,
   IonToolbar,
-  IonNote,
+  useIonToast,
 } from '@ionic/react';
 
 import { updateProfile } from 'firebase/auth';
@@ -21,7 +23,7 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { useHistory } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 
 import { updateUser, setUserLoading } from '../redux/features/authSlice';
 import { useSelector, useDispatch } from 'react-redux';
@@ -41,9 +43,10 @@ const schema = yup
   })
   .required();
 
-const EditName: React.FC<EditNameProps> = ({ displayName }) => {
+const EditName: React.FC<EditNameProps> = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const history = createBrowserHistory();
+  const [present] = useIonToast();
   const { userLoading } = useSelector((state: RootState) => state.auth);
 
   const {
@@ -64,17 +67,22 @@ const EditName: React.FC<EditNameProps> = ({ displayName }) => {
       })
         .then(() => {
           dispatch(updateUser({ displayName: data.name }));
-          history.push('/home/tab3');
+          history.go(-1);
           dispatch(setUserLoading(false));
         })
         .catch((error) => {
+          present({
+            message: 'Something went wrong!',
+            duration: 2000,
+            position: 'top',
+          });
           console.log(error);
         });
     }
   };
 
   return (
-    <>
+    <IonPage>
       <IonHeader collapse='fade'>
         <IonToolbar>
           <IonButtons slot='start'>
@@ -94,7 +102,7 @@ const EditName: React.FC<EditNameProps> = ({ displayName }) => {
               <Controller
                 render={({ field }) => (
                   <IonInput
-                    placeholder={displayName}
+                    placeholder={user?.displayName || ''}
                     clearOnEdit
                     clearInput
                     onIonBlur={() => field.onBlur()}
@@ -111,7 +119,7 @@ const EditName: React.FC<EditNameProps> = ({ displayName }) => {
           <IonButton type='submit'>Change</IonButton>
         </form>
       </IonContent>
-    </>
+    </IonPage>
   );
 };
 export default EditName;
