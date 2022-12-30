@@ -28,27 +28,28 @@ const MainTabs: React.FC = () => {
   const { updatesAvailable } = useSelector((state: RootState) => state.plate);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const updateApp = () => {
-      dispatch(setUpdateNotification(false));
-      window.location.reload();
-    };
+  //Temporarily disabled
+  // useEffect(() => {
+  //   const updateApp = () => {
+  //     dispatch(setUpdateNotification(false));
+  //     window.location.reload();
+  //   };
 
-    if (updatesAvailable) {
-      presentAlert({
-        backdropDismiss: false,
-        header: 'New Updates Available!',
-        subHeader: '😎💪',
-        buttons: [
-          {
-            text: 'Update',
-            role: 'confirm',
-            handler: () => updateApp(),
-          },
-        ],
-      });
-    }
-  }, [updatesAvailable, dispatch, presentAlert]);
+  //   if (updatesAvailable) {
+  //     presentAlert({
+  //       backdropDismiss: false,
+  //       header: 'New Updates Available!',
+  //       subHeader: '😎💪',
+  //       buttons: [
+  //         {
+  //           text: 'Update',
+  //           role: 'confirm',
+  //           handler: () => updateApp(),
+  //         },
+  //       ],
+  //     });
+  //   }
+  // }, [updatesAvailable, dispatch, presentAlert]);
 
   return (
     <IonTabs>
