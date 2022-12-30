@@ -1,6 +1,7 @@
 /* Ionic Framework */
 import {
   IonButton,
+  IonButtons,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -38,6 +39,10 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { createBrowserHistory } from 'history';
 
+/* Redux */
+import { useDispatch } from 'react-redux';
+import { setOffline } from '../redux/features/systemSlice';
+
 /* Form validation */
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -67,6 +72,7 @@ const Auth = () => {
   const [form, setForm] = useState('Login');
   const [presentAlert] = useIonAlert();
   const history = createBrowserHistory();
+  const dispatch = useDispatch();
 
   const {
     control,
@@ -146,6 +152,11 @@ const Auth = () => {
       <IonHeader collapse='fade'>
         <IonToolbar>
           <IonTitle>{form === 'Login' ? 'Login' : 'Register'}</IonTitle>
+          <IonButtons slot='end'>
+            <IonButton onClick={() => dispatch(setOffline(true))}>
+              Offline
+            </IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent>
