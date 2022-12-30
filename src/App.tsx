@@ -21,6 +21,7 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import Auth from './components/Auth';
+import Offline from './components/Offline';
 import MainTabs from './MainTabs';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase-config';
@@ -55,6 +56,7 @@ const PublicRoutes = () => {
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
+  const { offline } = useSelector((state: RootState) => state.system);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -69,6 +71,10 @@ const App: React.FC = () => {
       );
     });
   }, [dispatch]);
+
+  if (offline) {
+    return <Offline />;
+  }
 
   return user?.userId === null ? (
     <IonApp>
