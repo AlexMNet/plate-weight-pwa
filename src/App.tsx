@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
@@ -38,7 +39,7 @@ const PrivateRoutes = () => {
   return (
     <IonReactRouter>
       <Route path='/home' component={MainTabs} />;
-      <Route exact path='/' render={() => <Redirect to='/home/tab1' />} />;
+      <Route path='/' render={() => <Redirect to='/home/tab1' />} />;
     </IonReactRouter>
   );
 };
@@ -57,26 +58,35 @@ const App: React.FC = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
   const { offline } = useSelector((state: RootState) => state.system);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      dispatch(
-        setUser({
-          userId: currentUser?.uid,
-          userEmail: currentUser?.email,
-          displayName: currentUser?.displayName,
-          photoURL: currentUser?.photoURL,
-          emailVerified: currentUser?.emailVerified,
-        })
-      );
+    const authListener = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        dispatch(
+          setUser({
+            userId: currentUser?.uid,
+            userEmail: currentUser?.email,
+            displayName: currentUser?.displayName,
+            photoURL: currentUser?.photoURL,
+            emailVerified: currentUser?.emailVerified,
+          })
+        );
+        setLoading(false);
+      } else {
+        dispatch(setUser(null));
+        setLoading(false);
+      }
     });
+
+    return authListener;
   }, [dispatch]);
 
   if (offline) {
     return <Offline />;
   }
 
-  return user?.userId === null ? (
+  return loading ? (
     <IonApp>
       <Splash />
     </IonApp>
