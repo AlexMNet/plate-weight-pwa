@@ -93,7 +93,7 @@ const Auth = () => {
           data.password
         );
         setLoading(false);
-        history.push('/home');
+        history.push('/');
       } catch (error) {
         setLoading(false);
         if (error instanceof FirebaseError) {
@@ -113,7 +113,7 @@ const Auth = () => {
         setLoading(true);
         await createUserWithEmailAndPassword(auth, data.email, data.password);
         setLoading(false);
-        history.push('/home');
+        history.push('/');
       } catch (error) {
         setLoading(false);
         if (error instanceof FirebaseError) {
