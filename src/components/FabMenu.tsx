@@ -100,7 +100,7 @@ const FabMenu: React.FC = () => {
               ],
               onDidDismiss: ({ detail }) => {
                 setResult(detail);
-                if (detail.data) {
+                if (detail.data.time) {
                   dispatch(setShowTimer(true));
                   dispatch(setTime(detail.data.time));
                 }
