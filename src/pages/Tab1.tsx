@@ -8,8 +8,10 @@ import {
 
 import Bar from '../components/Bar';
 import PlateBadgeDisplay from '../components/PlateBadgeDisplay';
+import FabMenu from '../components/FabMenu';
 import InputDisplay from '../components/InputDisplay';
 import styled from 'styled-components';
+import Timer from '../components/Timer';
 
 const Tab1: React.FC = () => {
   return (
@@ -25,6 +27,8 @@ const Tab1: React.FC = () => {
           <Bar />
           <PlateBadgeDisplay />
         </Container>
+        <FabMenu />
+        <Timer />
       </IonContent>
     </IonPage>
   );

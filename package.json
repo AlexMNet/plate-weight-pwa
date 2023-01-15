@@ -6,7 +6,6 @@
     "@capacitor-community/keyboard-react": "^0.1.0",
     "@capacitor/app": "4.0.1",
     "@capacitor/core": "4.0.1",
-    "@capacitor/haptics": "4.0.1",
     "@capacitor/keyboard": "4.0.1",
     "@capacitor/status-bar": "4.0.1",
     "@emotion/react": "^11.10.4",
@@ -28,6 +27,7 @@
     "@types/styled-components": "^5.1.26",
     "firebase": "^9.14.0",
     "firebaseui": "^6.0.1",
+    "howler": "^2.2.3",
     "ionicons": "^5.4.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -80,6 +80,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "4.0.1",
+    "@types/howler": "^2.2.7",
     "@types/uuid": "^8.3.4"
   },
   "description": "A barbell plate calculator"
