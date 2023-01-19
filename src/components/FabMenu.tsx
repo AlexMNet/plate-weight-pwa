@@ -12,6 +12,7 @@ import { useState } from 'react';
 
 import { setShowTimer, setTime } from '../redux/features/timerSlice';
 import { useDispatch } from 'react-redux';
+import { setRepModalOpen } from '../redux/features/repMaxSlice';
 
 const FabMenu: React.FC = () => {
   const [presentSheet] = useIonActionSheet();
@@ -110,10 +111,12 @@ const FabMenu: React.FC = () => {
         >
           <IonIcon icon={timerOutline}></IonIcon>
         </IonFabButton>
-        {/* TODO: Add one rep max to tab 1 as well */}
-        {/* <IonFabButton color='primary'>
+        <IonFabButton
+          color='primary'
+          onClick={() => dispatch(setRepModalOpen(true))}
+        >
           <IonIcon icon={calculatorOutline}></IonIcon>
-        </IonFabButton> */}
+        </IonFabButton>
       </IonFabList>
     </IonFab>
   );

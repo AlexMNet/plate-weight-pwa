@@ -3,6 +3,7 @@ import plateReducer from '../features/plateSlice';
 import authReducer from '../features/authSlice';
 import systemReducer from '../features/systemSlice';
 import timerReducer from '../features/timerSlice';
+import repMaxReducer from '../features/repMaxSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     auth: authReducer,
     system: systemReducer,
     timer: timerReducer,
+    repMax: repMaxReducer,
   },
 });
 
