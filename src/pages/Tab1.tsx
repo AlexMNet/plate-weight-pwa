@@ -7,11 +7,13 @@ import {
 } from '@ionic/react';
 
 import Bar from '../components/Bar';
-import PlateBadgeDisplay from '../components/PlateBadgeDisplay';
 import FabMenu from '../components/FabMenu';
 import InputDisplay from '../components/InputDisplay';
-import styled from 'styled-components';
+import MaxCalculator from '../components/MaxCalculator';
+import PlateBadgeDisplay from '../components/PlateBadgeDisplay';
 import Timer from '../components/Timer';
+
+import styled from 'styled-components';
 
 const Tab1: React.FC = () => {
   return (
@@ -23,6 +25,7 @@ const Tab1: React.FC = () => {
       </IonHeader>
       <IonContent scrollY={false} fullscreen>
         <Container>
+          <MaxCalculator />
           <InputDisplay />
           <Bar />
           <PlateBadgeDisplay />

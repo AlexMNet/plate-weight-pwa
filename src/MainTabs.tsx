@@ -8,7 +8,7 @@ import {
   useIonAlert,
 } from '@ionic/react';
 import { Redirect, Route } from 'react-router-dom';
-import { barbell, cogSharp, trophy, fitnessOutline } from 'ionicons/icons';
+import { barbell, cogSharp, fitnessOutline } from 'ionicons/icons';
 
 import type { RootState } from './redux/app/store';
 import { useSelector, useDispatch } from 'react-redux';
@@ -77,10 +77,6 @@ const MainTabs: React.FC = () => {
         <IonTabButton tab='tab1' href='/home/tab1'>
           <IonIcon icon={barbell} />
           <IonLabel>Calculator</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab='tab2' href='/home/tab2'>
-          <IonIcon icon={trophy} />
-          <IonLabel>1 Rep Max</IonLabel>
         </IonTabButton>
         <IonTabButton tab='tab4' href='/home/tab4'>
           <IonIcon icon={fitnessOutline} />
