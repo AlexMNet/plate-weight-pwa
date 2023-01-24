@@ -1,25 +1,46 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { IonChip, IonIcon, IonLabel } from '@ionic/react';
+import { IonChip, IonIcon, IonLabel, useIonToast } from '@ionic/react';
 
-import { timerOutline, close } from 'ionicons/icons';
+import { close, reloadOutline } from 'ionicons/icons';
 import type { RootState } from '../redux/app/store';
 
 import { useEffect } from 'react';
 
-import { decreaseTimeByOne, resetTimer } from '../redux/features/timerSlice';
+import {
+  decreaseTimeByOne,
+  resetTimer,
+  setStartTimer,
+  setShowTimerAlert,
+} from '../redux/features/timerSlice';
 
 import { secondsToMMSS } from '../utils/functions';
 
 const Timer: React.FC = () => {
   const dispatch = useDispatch();
-  const { time, showTimer } = useSelector((state: RootState) => state.timer);
+  const [presentAlert] = useIonToast();
+  const { time, showTimer, startTimer, showTimerAlert } = useSelector(
+    (state: RootState) => state.timer
+  );
 
   useEffect(() => {
-    time > 0 &&
+    startTimer &&
+      time > 0 &&
       setTimeout(() => {
         dispatch(decreaseTimeByOne());
       }, 1000);
-  }, [time, dispatch]);
+
+    if (showTimerAlert) {
+      presentAlert({
+        header: 'Time Up!',
+        message: 'Get Moving!💪',
+        buttons: ['OK'],
+        position: 'middle',
+        onDidDismiss: () => {
+          dispatch(setShowTimerAlert(false));
+        },
+      });
+    }
+  }, [time, dispatch, startTimer, showTimerAlert, presentAlert]);
 
   if (!showTimer) return null;
 
@@ -30,10 +51,17 @@ const Timer: React.FC = () => {
         bottom: '50px',
         left: '50%',
         transform: 'translate(-50%)',
+        zIndex: 100,
       }}
     >
-      <IonChip>
-        <IonIcon color='primary' icon={timerOutline} />
+      <IonChip color='dark'>
+        <IonIcon
+          color='danger'
+          icon={close}
+          onClick={() => {
+            dispatch(resetTimer());
+          }}
+        />
         <IonLabel
           className='ion-margin-end ion-margin-start'
           style={{ fontFamily: 'lato', fontSize: '1.2rem' }}
@@ -41,11 +69,9 @@ const Timer: React.FC = () => {
           {time === 0 ? 'Time Up!' : secondsToMMSS(time)}
         </IonLabel>
         <IonIcon
-          color='danger'
-          icon={close}
-          onClick={() => {
-            dispatch(resetTimer());
-          }}
+          color='success'
+          icon={reloadOutline}
+          onClick={() => dispatch(setStartTimer(true))}
         />
       </IonChip>
     </div>

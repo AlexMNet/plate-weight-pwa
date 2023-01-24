@@ -10,7 +10,12 @@ import type { OverlayEventDetail } from '@ionic/core';
 
 import { useState } from 'react';
 
-import { setShowTimer, setTime } from '../redux/features/timerSlice';
+import {
+  setShowTimer,
+  setTime,
+  setInitialTime,
+  setStartTimer,
+} from '../redux/features/timerSlice';
 import { useDispatch } from 'react-redux';
 import { setRepModalOpen } from '../redux/features/repMaxSlice';
 
@@ -104,6 +109,8 @@ const FabMenu: React.FC = () => {
                 if (detail.data?.time) {
                   dispatch(setShowTimer(true));
                   dispatch(setTime(detail.data.time));
+                  dispatch(setInitialTime(detail.data.time));
+                  dispatch(setStartTimer(true));
                 }
               },
             });
