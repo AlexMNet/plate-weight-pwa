@@ -80,7 +80,7 @@ const ForgotPassword = () => {
 
   return (
     <IonPage>
-      <IonHeader collapse='fade'>
+      <IonHeader collapse="fade">
         <IonToolbar>
           <IonTitle>Forgot Password</IonTitle>
         </IonToolbar>
@@ -94,35 +94,37 @@ const ForgotPassword = () => {
             <IonCardContent>
               <form onSubmit={handleSubmit(onSubmit)} noValidate>
                 <IonList>
-                  <IonItem className='ion-margin-vertical ion-invalid'>
+                  <IonItem className="ion-margin-vertical ion-invalid">
                     <IonLabel>Email:</IonLabel>
                     <Controller
                       render={({ field }) => (
                         <IonInput
-                          type='email'
+                          type="email"
                           {...field}
                           onIonBlur={() => field.onBlur()}
                           onIonChange={(e) => field.onChange(e.detail.value)}
                         />
                       )}
                       control={control}
-                      name='email'
+                      name="email"
                     />
-                    <IonNote slot='error'>{errors.email?.message}</IonNote>
+                    <IonNote slot="error">
+                      {errors.email?.message?.toString()}
+                    </IonNote>
                   </IonItem>
                 </IonList>
                 <IonButton
-                  type='submit'
-                  className='ion-margin-vertical'
-                  expand='full'
+                  type="submit"
+                  className="ion-margin-vertical"
+                  expand="full"
                 >
                   Reset Password
                 </IonButton>
               </form>
-              <IonGrid className='ion-padding-top'>
-                <IonRow className='ion-justify-content-center ion-align-items-center'>
+              <IonGrid className="ion-padding-top">
+                <IonRow className="ion-justify-content-center ion-align-items-center">
                   <IonCol>
-                    <IonButton routerLink='/auth' fill='clear' expand='full'>
+                    <IonButton routerLink="/auth" fill="clear" expand="full">
                       back to login
                     </IonButton>
                   </IonCol>

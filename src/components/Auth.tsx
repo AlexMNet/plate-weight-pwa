@@ -149,10 +149,10 @@ const Auth = () => {
 
   return (
     <IonPage>
-      <IonHeader collapse='fade'>
+      <IonHeader collapse="fade">
         <IonToolbar>
           <IonTitle>{form === 'Login' ? 'Login' : 'Register'}</IonTitle>
-          <IonButtons slot='end'>
+          <IonButtons slot="end">
             <IonButton onClick={() => dispatch(setOffline(true))}>
               Offline
             </IonButton>
@@ -170,23 +170,25 @@ const Auth = () => {
             <IonCardContent>
               <form onSubmit={handleSubmit(onSubmit)} noValidate>
                 <IonList>
-                  <IonItem className='ion-margin-vertical ion-invalid'>
+                  <IonItem className="ion-margin-vertical ion-invalid">
                     <IonLabel>Email:</IonLabel>
                     <Controller
                       render={({ field }) => (
                         <IonInput
-                          type='email'
+                          type="email"
                           {...field}
                           onIonBlur={() => field.onBlur()}
                           onIonChange={(e) => field.onChange(e.detail.value)}
                         />
                       )}
                       control={control}
-                      name='email'
+                      name="email"
                     />
-                    <IonNote slot='error'>{errors.email?.message}</IonNote>
+                    <IonNote slot="error">
+                      {errors.email?.message?.toString()}
+                    </IonNote>
                   </IonItem>
-                  <IonItem className='ion-margin-vertical ion-invalid'>
+                  <IonItem className="ion-margin-vertical ion-invalid">
                     <IonLabel>Password:</IonLabel>
                     <Controller
                       render={({ field }) => (
@@ -198,43 +200,45 @@ const Auth = () => {
                         />
                       )}
                       control={control}
-                      name='password'
+                      name="password"
                     />
                     <IonButton
                       color={showPassword ? 'primary' : 'medium'}
-                      fill='clear'
+                      fill="clear"
                       onClick={handleShowPassword}
                     >
                       <IonIcon
                         icon={showPassword ? eyeOutline : eyeOffOutline}
                       />
                     </IonButton>
-                    <IonNote slot='error'>{errors.password?.message}</IonNote>
+                    <IonNote slot="error">
+                      {errors.password?.message?.toString()}
+                    </IonNote>
                   </IonItem>
                 </IonList>
                 <IonButton
-                  type='submit'
-                  className='ion-margin-vertical'
-                  expand='full'
+                  type="submit"
+                  className="ion-margin-vertical"
+                  expand="full"
                 >
                   {form === 'Login' ? 'Login' : 'Register'}
                 </IonButton>
 
                 <IonButton
-                  routerLink='/forgot-password'
-                  fill='clear'
-                  expand='full'
+                  routerLink="/forgot-password"
+                  fill="clear"
+                  expand="full"
                 >
                   <small>Forgot password?</small>
                 </IonButton>
               </form>
-              <IonGrid className='ion-padding-top'>
-                <IonRow className='ion-justify-content-center ion-align-items-center'>
+              <IonGrid className="ion-padding-top">
+                <IonRow className="ion-justify-content-center ion-align-items-center">
                   <IonCol>
                     <IonButton
                       onClick={changeFormType}
-                      fill='clear'
-                      expand='full'
+                      fill="clear"
+                      expand="full"
                     >
                       {form === 'Login' ? 'Register' : 'Login'}
                     </IonButton>
