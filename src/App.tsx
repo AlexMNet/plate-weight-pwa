@@ -11,6 +11,9 @@ import '@ionic/react/css/normalize.css';
 import '@ionic/react/css/structure.css';
 import '@ionic/react/css/typography.css';
 
+/* Tailwindcss */
+import './index.css';
+
 /* Optional CSS utils that can be commented out */
 import '@ionic/react/css/padding.css';
 import '@ionic/react/css/float-elements.css';
@@ -38,8 +41,8 @@ setupIonicReact();
 const PrivateRoutes = () => {
   return (
     <IonReactRouter>
-      <Route path='/home' component={MainTabs} />;
-      <Route path='/' render={() => <Redirect to='/home/tab1' />} />;
+      <Route path="/home" component={MainTabs} />;
+      <Route path="/" render={() => <Redirect to="/home/tab1" />} />;
     </IonReactRouter>
   );
 };
@@ -47,9 +50,9 @@ const PrivateRoutes = () => {
 const PublicRoutes = () => {
   return (
     <IonReactRouter>
-      <Route path='/auth' component={Auth} />
-      <Route path='/forgot-password' component={ForgotPassword} />
-      <Route path='/' render={() => <Redirect to='/auth' />} />
+      <Route path="/auth" component={Auth} />
+      <Route path="/forgot-password" component={ForgotPassword} />
+      <Route path="/" render={() => <Redirect to="/auth" />} />
     </IonReactRouter>
   );
 };
