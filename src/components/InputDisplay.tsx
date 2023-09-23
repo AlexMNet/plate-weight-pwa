@@ -6,6 +6,11 @@ import {
   IonButton,
   IonIcon,
   IonText,
+  IonList,
+  IonItem,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from '@ionic/react';
 import { closeCircleOutline } from 'ionicons/icons';
 import percentages from '../utils/data/percentages';
@@ -54,30 +59,64 @@ const InputDisplay: React.FC<any> = () => {
       <InputWrapper>
         <Input
           value={inputWeight}
-          type='text'
-          inputMode='numeric'
-          placeholder='LBS'
+          type="text"
+          inputMode="numeric"
+          placeholder="LBS"
           size={3}
           onIonChange={(e: any) => onInputWeightChange(e)}
         ></Input>
-        <IonButton onClick={() => dispatch(reset())} fill='clear'>
+        <IonButton onClick={() => dispatch(reset())} fill="clear">
           <IonIcon icon={closeCircleOutline} />
         </IonButton>
       </InputWrapper>
-      <StyledIonSelect
-        interface='popover'
-        value={percentage}
-        placeholder='Percentage'
-        onIonChange={(e) => handlePercentageChange(e.target.value)}
-      >
-        {percentages.map((percentage) => (
-          <IonSelectOption key={percentage.value} value={percentage.value}>
-            {percentage.label}
-          </IonSelectOption>
-        ))}
-      </StyledIonSelect>
-      <IonButton onClick={() => handleOnClick()}>Calc</IonButton>
-      <IonText color='warning'>
+      <IonGrid>
+        <IonRow className="ion-justify-content-center">
+          <IonSelect
+            style={{ width: '80px' }}
+            interface="popover"
+            value={percentage}
+            placeholder="Percentage"
+            onIonChange={(e) => handlePercentageChange(e.target.value)}
+          >
+            {percentages.map((percentage) => (
+              <IonSelectOption key={percentage.value} value={percentage.value}>
+                {percentage.label}
+              </IonSelectOption>
+            ))}
+          </IonSelect>
+        </IonRow>
+        <IonRow>
+          <IonCol size="auto">
+            <div style={{ width: '150px' }}>
+              <IonButton expand="block" onClick={() => handleOnClick()}>
+                Calc
+              </IonButton>
+            </div>
+          </IonCol>
+        </IonRow>
+      </IonGrid>
+      {/* <IonList>
+        <IonItem>
+          <IonSelect
+            interface="popover"
+            value={percentage}
+            placeholder="Percentage"
+            onIonChange={(e) => handlePercentageChange(e.target.value)}
+          >
+            {percentages.map((percentage) => (
+              <IonSelectOption key={percentage.value} value={percentage.value}>
+                {percentage.label}
+              </IonSelectOption>
+            ))}
+          </IonSelect>
+        </IonItem>
+        <IonItem>
+          <IonButton expand="block" onClick={() => handleOnClick()}>
+            Calc
+          </IonButton>
+        </IonItem>
+      </IonList> */}
+      <IonText color="warning">
         <p
           style={{
             visibility:
@@ -105,14 +144,20 @@ const InputWrapper = styled.div`
 const Wrapper = styled.div`
   margin: 0 auto;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
 `;
 
-const StyledIonSelect = styled(IonSelect)`
-  && {
-    width: 150px;
-    margin: 0 auto;
-  }
-`;
+// const StyledIonSelect = styled(IonSelect)`
+//   && {
+//     width: 150px;
+//     margin: 0 auto;
+//     background-color: red;
+//     border: 1px solid white;
+//   }
+// `;
 
 const Input = styled(IonInput)<{ value: string }>`
   font-size: 90px;
